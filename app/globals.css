@@ -3,37 +3,57 @@
 
 /* 
    ==========================================================================
-   THEME CONFIGURATION (Parchment & Ink)
+   THEME CONFIGURATION (High Contrast Parchment)
    ==========================================================================
 */
 @theme {
-  /* Override default fonts */
-  --font-sans: var(--font-crimson);      /* Body text is now Serif (Crimson) */
-  --font-serif: var(--font-cormorant);   /* Headings are Fancy Serif (Cormorant) */
-  
-  /* Define our Custom Palette */
-  --color-paper: #F2F0E9;                /* Warm Parchment Background */
-  --color-paper-dark: #E6E2D6;           /* Slightly darker paper for accents */
-  
-  --color-ink: #2C241B;                  /* Very Dark Brown (Text) */
-  --color-sepia: #5C554B;                /* Muted Brown (Secondary Text) */
-  --color-rust: #8C4A32;                 /* Dried Blood/Rust (Links/Accents) */
+  /* Fonts */
+  --font-sans: var(--font-crimson);      
+  --font-serif: var(--font-cormorant);   
   
   /* 
-     We Override Gray to be Sepia-toned 
-     This ensures all existing "text-gray-500" classes turn warm automatically 
+     CORE PALETTE
+     Paper: Warm Beige
+     Ink: Almost Black (Not pure black, softer on eyes)
+     Rust: Accent color
   */
+  --color-paper: #F2F0E9;                
+  --color-ink: #1A1510;                  
+  --color-rust: #A63C1E; 
+
+  /* 
+     THE "NO GHOST TEXT" REMAP
+     We are completely removing light grays from the text scale.
+     Even the lightest text color (gray-400) will now be a solid dark brown.
+  */
+  
+  /* Backgrounds & subtle areas */
   --color-gray-50:  #FAF9F7;
-  --color-gray-100: #F2F0E9;
-  --color-gray-200: #E6E2D6;
-  --color-gray-300: #D1CCC0;
-  --color-gray-400: #9D9688;
-  --color-gray-500: #7A7266;
-  --color-gray-600: #5C554B;
-  --color-gray-700: #453D33;
-  --color-gray-800: #2C241B;
-  --color-gray-900: #1A1510;
-  --color-gray-950: #0D0A08;
+  --color-gray-100: #F2F0E9; /* Matches Paper */
+  --color-gray-200: #E3DFD4; /* Darker Paper for cards/hovers */
+  
+  /* Borders - Visible but subtle */
+  --color-gray-300: #B0A898;             
+  
+  /* 
+     TEXT COLORS START HERE
+     These are significantly darker than standard Tailwind grays.
+  */
+  
+  /* Dates / Metadata (Was #756C60 -> Now #5E5448) */
+  --color-gray-400: #5E5448;             
+  
+  /* Secondary Text / Captions (Was #5E5549 -> Now #4A4238) */
+  --color-gray-500: #4A4238;             
+  
+  /* Main Body Descriptions (Was #453E35 -> Now #2E2924 - Almost Black) */
+  --color-gray-600: #2E2924;             
+  
+  /* Near Blacks */
+  --color-gray-700: #24201C;
+  --color-gray-800: #1A1510;
+  --color-gray-900: #0F0C0A; /* Deepest Ink */
+  --color-gray-950: #000000;
 
   /* Map Blue to Rust for hover states */
   --color-blue-600: var(--color-rust);
@@ -52,17 +72,24 @@
 body {
   background-color: var(--color-paper);
   color: var(--color-ink);
-  /* Use the Crimson font by default */
   font-family: var(--font-crimson), serif; 
-  /* Old style figures looks better on numbers */
   font-feature-settings: "onum", "pnum"; 
+  
+  /* 
+     VITAL FIX:
+     Crimson Pro is a thin font. This slightly thickens it 
+     without making it bold, improving readability on light backgrounds.
+  */
+  -webkit-font-smoothing: auto; 
+  -moz-osx-font-smoothing: auto;
+  font-weight: 500; /* Bump base weight from 400 to 500 */
 }
 
-/* Headings use the fancy Cormorant font */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-cormorant), serif;
   font-weight: 700;
-  letter-spacing: -0.02em; /* Tighter tracking looks more like print */
+  letter-spacing: -0.02em; 
+  color: var(--color-gray-900);
 }
 
 /* 
@@ -76,27 +103,39 @@ h1, h2, h3, h4, h5, h6 {
   color: white;
 }
 
-/* Typography Plugin Overrides to fit the theme */
+/* Typography Plugin Overrides */
 .prose {
-  --tw-prose-body: var(--color-ink);
+  /* Ensure article text is high contrast */
+  --tw-prose-body: var(--color-gray-800);
   --tw-prose-headings: var(--color-gray-900);
   --tw-prose-links: var(--color-rust);
-  --tw-prose-quotes: var(--color-sepia);
+  --tw-prose-bold: var(--color-gray-900);
+  --tw-prose-quotes: var(--color-gray-600); 
   --tw-prose-quote-borders: var(--color-rust);
+  --tw-prose-captions: var(--color-gray-500);
   
-  /* Make prose text larger for book-like reading */
   font-size: 1.125rem; 
   line-height: 1.8;
 }
 
-/* Add a subtle "Paper Grain" effect (Optional, keeps it clean for now) */
-/* 
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
-  pointer-events: none;
-  z-index: 50;
-} 
-*/
+/* Code Block Styling */
+pre {
+  background-color: #1e1e1e !important; /* Dark background for code */
+  border-radius: 0.5rem;
+  border: 1px solid var(--color-gray-300);
+  padding: 1rem;
+  overflow-x: auto;
+}
+
+code {
+  font-family: monospace; /* Ensure code font is distinct */
+}
+
+/* Inline code styling (like `const x`) */
+:not(pre) > code {
+  background-color: var(--color-gray-200);
+  color: var(--color-rust);
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.25rem;
+  font-size: 0.85em;
+}
