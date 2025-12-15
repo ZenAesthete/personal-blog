@@ -3,52 +3,89 @@
 
 /* 
    ==========================================================================
-   THEME CONFIGURATION: "Readable Antiquity"
+   THEME VARIABLES (The "Brain" of Dark Mode)
    ==========================================================================
+   Here we define the colors for Light Mode (your current colors) 
+   and Dark Mode (inverted colors).
+*/
+
+:root {
+  /* --- LIGHT MODE (Your Current Parchment Palette) --- */
+  --color-paper: #F5F2E8;
+  --color-paper-dark: #E6E2D3; /* Used for code backgrounds */
+  --color-ink: #1C1917;
+  --color-accent: #8B2C0E;
+  
+  --color-gray-50:  #FAF9F6;
+  --color-gray-100: #F5F2E8;
+  --color-gray-200: #E6E2D3;
+  --color-gray-300: #Cdc8B8;
+  --color-gray-400: #6B6257;
+  --color-gray-500: #524C44;
+  --color-gray-600: #3F3A34;
+  --color-gray-700: #2E2924;
+  --color-gray-800: #1C1917;
+  --color-gray-900: #0F0C0A;
+  
+  /* Code Block Background (Light Mode) */
+  --color-code-bg: #2E2924; 
+  --color-code-text: #F5F2E8;
+}
+
+.dark {
+  /* --- DARK MODE (Night Reading Palette) --- */
+  /* Background: Deep, warm charcoal (not pitch black) */
+  --color-paper: #12100E;       
+  /* Secondary Background: Slightly lighter charcoal */
+  --color-paper-dark: #1F1C18;  
+  /* Text: Soft Beige (reduces eye strain vs pure white) */
+  --color-ink: #E6E2D3;         
+  /* Accent: Lighter Rust/Terracotta to pop against dark */
+  --color-accent: #E07A5F;      
+
+  /* Inverted Gray Scale */
+  --color-gray-50:  #0F0C0A;
+  --color-gray-100: #12100E;
+  --color-gray-200: #1C1917;
+  --color-gray-300: #2E2924;    /* Borders */
+  --color-gray-400: #9D9688;    /* Metadata */
+  --color-gray-500: #B0A898;
+  --color-gray-600: #Cdc8B8;
+  --color-gray-700: #E6E2D3;    /* Body Text */
+  --color-gray-800: #F5F2E8;
+  --color-gray-900: #FFFFFF;    /* Headings */
+
+  /* Code Block Background (Dark Mode) */
+  --color-code-bg: #1F1C18;
+  --color-code-text: #E6E2D3;
+}
+
+/* 
+   ==========================================================================
+   THEME CONFIGURATION
+   ==========================================================================
+   We map Tailwind's internal names to the variables defined above.
 */
 @theme {
-  /* Fonts */
+  /* Fonts - Kept exactly as you had them */
   --font-sans: var(--font-crimson);      
   --font-serif: var(--font-cormorant);   
   
-  /* 
-     PALETTE OVERHAUL
-     
-     Paper: #F5F2E8 (A slightly creamier, solid beige)
-     Ink:   #1C1917 (Warm Black - High Contrast)
-     Accent: #8B2C0E (Deep Vermilion/Rust - Classic Manuscript Red)
-  */
-  
-  --color-paper: #F5F2E8;                
-  --color-ink: #1C1917;                  
-  --color-accent: #8B2C0E; 
+  /* Map Colors to Variables */
+  --color-paper: var(--color-paper);                
+  --color-ink: var(--color-ink);                  
+  --color-accent: var(--color-accent); 
 
-  /* 
-     COLOR MAPPING
-     We are forcing high contrast. 
-     Gray scale is now just shades of Warm Black.
-  */
-  
-  /* Backgrounds */
-  --color-gray-50:  #FAF9F6;
-  --color-gray-100: #F5F2E8; /* Main Paper */
-  --color-gray-200: #E6E2D3; /* Darker Paper (Cards/Borders) */
-  
-  /* Borders - Visible & Solid */
-  --color-gray-300: #Cdc8B8;             
-  
-  /* META TEXT (Dates, captions) */
-  /* Previously this was too light. Now it is a solid dark grey-brown. */
-  --color-gray-400: #6B6257;             
-  
-  /* SECONDARY TEXT */
-  --color-gray-500: #524C44;             
-  --color-gray-600: #3F3A34;             
-  
-  /* PRIMARY TEXT (Body) */
-  --color-gray-700: #2E2924;
-  --color-gray-800: #1C1917; /* Main Ink */
-  --color-gray-900: #0F0C0A; /* Headers */
+  --color-gray-50:  var(--color-gray-50);
+  --color-gray-100: var(--color-gray-100);
+  --color-gray-200: var(--color-gray-200);
+  --color-gray-300: var(--color-gray-300);
+  --color-gray-400: var(--color-gray-400);
+  --color-gray-500: var(--color-gray-500);
+  --color-gray-600: var(--color-gray-600);
+  --color-gray-700: var(--color-gray-700);
+  --color-gray-800: var(--color-gray-800);
+  --color-gray-900: var(--color-gray-900);
   --color-gray-950: #000000;
 
   /* Map Blue (default link color) to Accent */
@@ -57,7 +94,7 @@
 
 /* 
    ==========================================================================
-   Global Styles
+   GLOBAL STYLES (Preserved from your original file)
    ==========================================================================
 */
 
@@ -70,20 +107,19 @@ body {
   color: var(--color-ink);
   font-family: var(--font-crimson), serif; 
   
-  /* 
-     CRITICAL READABILITY FIXES
-     1. Increase base weight
-     2. Increase base size slightly
-  */
+  /* CRITICAL READABILITY FIXES (Preserved) */
   font-weight: 500; 
-  font-size: 1.05rem; /* Slight boost from default 1rem */
+  font-size: 1.05rem; 
   line-height: 1.75;
   
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  
+  /* Smooth transition for Dark Mode toggle */
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Headings: Deep Black, Heavy Weight */
+/* Headings (Preserved) */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-cormorant), serif;
   font-weight: 700;
@@ -93,63 +129,64 @@ h1, h2, h3, h4, h5, h6 {
 
 /* 
    ==========================================================================
-   Element Styling
+   ELEMENT STYLING
    ==========================================================================
 */
 
-/* Selection: High Contrast */
+/* Selection (Preserved) */
 ::selection {
   background-color: var(--color-accent);
   color: #fff;
 }
 
-/* Links (Global) */
+/* Links (Preserved) */
 a {
   transition: color 0.2s ease;
 }
 
 /* 
    ==========================================================================
-   Typography Plugin Overrides (MDX Content)
+   TYPOGRAPHY PLUGIN OVERRIDES (Preserved & Variables applied)
    ==========================================================================
 */
 .prose {
-  /* Body Text: Solid Warm Black */
-  --tw-prose-body: var(--color-gray-800);
+  /* Body Text */
+  --tw-prose-body: var(--color-gray-800); /* Note: In your original this was hardcoded, now mapped to var */
   
-  /* Headings: Pure Black */
+  /* Headings */
   --tw-prose-headings: var(--color-gray-900);
   
-  /* Links: Accent Color + Underline */
+  /* Links */
   --tw-prose-links: var(--color-accent);
   
-  /* Bold: Black */
+  /* Bold */
   --tw-prose-bold: var(--color-gray-950);
   
-  /* Quotes: Dark Grey with Accent Border */
+  /* Quotes */
   --tw-prose-quotes: var(--color-gray-600); 
   --tw-prose-quote-borders: var(--color-accent);
   
   /* Captions */
   --tw-prose-captions: var(--color-gray-500);
   
-  /* Size & Spacing adjustments for readability */
-  font-size: 1.125rem; /* 18px */
+  /* Size & Spacing adjustments (Preserved) */
+  font-size: 1.125rem; 
   line-height: 1.8;
-  max-width: 65ch; /* Optimal reading width */
+  max-width: 65ch; 
 }
 
-/* Fix for Inline Code (make it pop) */
+/* Fix for Inline Code (Preserved + Dynamic Background) */
 .prose :where(code):not(:where(pre *)) {
-  background-color: #E6E2D3; /* Darker paper background */
+  background-color: var(--color-paper-dark); /* Dynamic: #E6E2D3 (Light) / #1F1C18 (Dark) */
   color: var(--color-accent);
   font-weight: 600;
   padding: 0.1rem 0.3rem;
   border-radius: 0.25rem;
 }
 
-/* Fix for Code Blocks */
+/* Fix for Code Blocks (Preserved + Dynamic Colors) */
 pre {
-  background-color: #2E2924 !important; /* Dark Brown/Black background */
-  border: 1px solid var(--color-gray-400);
+  background-color: var(--color-code-bg) !important; /* Dynamic Variable */
+  color: var(--color-code-text);
+  border: 1px solid var(--color-gray-400); /* Use gray-400 (metadata color) for border */
 }

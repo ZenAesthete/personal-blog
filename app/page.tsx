@@ -14,7 +14,7 @@ export default function Home() {
         <h1 className="text-4xl font-bold tracking-tight mb-6">
           Personal Blog
         </h1>
-        <p className="text-xl text-gray-600 dark:text-gray-300 leading-relaxed">
+        <p className="text-xl text-gray-600 dark:text-gray-600 leading-relaxed">
           A personal space for writing, reflection, and long-form thought. 
           Here I explore philosophy, spirituality, and the ideas that resonate.
         </p>
