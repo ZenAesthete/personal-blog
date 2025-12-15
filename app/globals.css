@@ -3,16 +3,14 @@
 
 /* 
    ==========================================================================
-   THEME VARIABLES (The "Brain" of Dark Mode)
+   THEME VARIABLES
    ==========================================================================
-   Here we define the colors for Light Mode (your current colors) 
-   and Dark Mode (inverted colors).
 */
 
 :root {
-  /* --- LIGHT MODE (Your Current Parchment Palette) --- */
+  /* --- LIGHT MODE --- */
   --color-paper: #F5F2E8;
-  --color-paper-dark: #E6E2D3; /* Used for code backgrounds */
+  --color-paper-dark: #E6E2D3;
   --color-ink: #1C1917;
   --color-accent: #8B2C0E;
   
@@ -27,35 +25,35 @@
   --color-gray-800: #1C1917;
   --color-gray-900: #0F0C0A;
   
-  /* Code Block Background (Light Mode) */
+  /* FIX: Explicitly define 950 for Light Mode (Pure Black) */
+  --color-gray-950: #000000;
+  
   --color-code-bg: #2E2924; 
   --color-code-text: #F5F2E8;
 }
 
 .dark {
-  /* --- DARK MODE (Night Reading Palette) --- */
-  /* Background: Deep, warm charcoal (not pitch black) */
+  /* --- DARK MODE --- */
   --color-paper: #12100E;       
-  /* Secondary Background: Slightly lighter charcoal */
   --color-paper-dark: #1F1C18;  
-  /* Text: Soft Beige (reduces eye strain vs pure white) */
   --color-ink: #E6E2D3;         
-  /* Accent: Lighter Rust/Terracotta to pop against dark */
   --color-accent: #E07A5F;      
 
   /* Inverted Gray Scale */
   --color-gray-50:  #0F0C0A;
   --color-gray-100: #12100E;
   --color-gray-200: #1C1917;
-  --color-gray-300: #2E2924;    /* Borders */
-  --color-gray-400: #9D9688;    /* Metadata */
+  --color-gray-300: #2E2924;
+  --color-gray-400: #9D9688;
   --color-gray-500: #B0A898;
   --color-gray-600: #Cdc8B8;
   --color-gray-700: #E6E2D3;    /* Body Text */
   --color-gray-800: #F5F2E8;
   --color-gray-900: #FFFFFF;    /* Headings */
+  
+  /* FIX: Explicitly define 950 for Dark Mode (Pure White) */
+  --color-gray-950: #FFFFFF;    /* Bold Text */
 
-  /* Code Block Background (Dark Mode) */
   --color-code-bg: #1F1C18;
   --color-code-text: #E6E2D3;
 }
@@ -64,14 +62,11 @@
    ==========================================================================
    THEME CONFIGURATION
    ==========================================================================
-   We map Tailwind's internal names to the variables defined above.
 */
 @theme {
-  /* Fonts - Kept exactly as you had them */
   --font-sans: var(--font-crimson);      
   --font-serif: var(--font-cormorant);   
   
-  /* Map Colors to Variables */
   --color-paper: var(--color-paper);                
   --color-ink: var(--color-ink);                  
   --color-accent: var(--color-accent); 
@@ -86,15 +81,16 @@
   --color-gray-700: var(--color-gray-700);
   --color-gray-800: var(--color-gray-800);
   --color-gray-900: var(--color-gray-900);
-  --color-gray-950: #000000;
+  
+  /* FIX: Use the variable instead of hardcoded black */
+  --color-gray-950: var(--color-gray-950);
 
-  /* Map Blue (default link color) to Accent */
   --color-blue-600: var(--color-accent);
 }
 
 /* 
    ==========================================================================
-   GLOBAL STYLES (Preserved from your original file)
+   GLOBAL STYLES
    ==========================================================================
 */
 
@@ -107,7 +103,7 @@ body {
   color: var(--color-ink);
   font-family: var(--font-crimson), serif; 
   
-  /* CRITICAL READABILITY FIXES (Preserved) */
+  /* Readability settings */
   font-weight: 500; 
   font-size: 1.05rem; 
   line-height: 1.75;
@@ -115,11 +111,9 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   
-  /* Smooth transition for Dark Mode toggle */
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Headings (Preserved) */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-cormorant), serif;
   font-weight: 700;
@@ -133,60 +127,49 @@ h1, h2, h3, h4, h5, h6 {
    ==========================================================================
 */
 
-/* Selection (Preserved) */
 ::selection {
   background-color: var(--color-accent);
   color: #fff;
 }
 
-/* Links (Preserved) */
 a {
   transition: color 0.2s ease;
 }
 
 /* 
    ==========================================================================
-   TYPOGRAPHY PLUGIN OVERRIDES (Preserved & Variables applied)
+   TYPOGRAPHY PLUGIN OVERRIDES
    ==========================================================================
 */
 .prose {
-  /* Body Text */
-  --tw-prose-body: var(--color-gray-800); /* Note: In your original this was hardcoded, now mapped to var */
-  
-  /* Headings */
+  --tw-prose-body: var(--color-gray-800);
   --tw-prose-headings: var(--color-gray-900);
-  
-  /* Links */
   --tw-prose-links: var(--color-accent);
   
-  /* Bold */
+  /* FIX: Ensure bold uses the 950 variable (Black in Light, White in Dark) */
   --tw-prose-bold: var(--color-gray-950);
   
-  /* Quotes */
   --tw-prose-quotes: var(--color-gray-600); 
   --tw-prose-quote-borders: var(--color-accent);
-  
-  /* Captions */
   --tw-prose-captions: var(--color-gray-500);
   
-  /* Size & Spacing adjustments (Preserved) */
   font-size: 1.125rem; 
   line-height: 1.8;
   max-width: 65ch; 
 }
 
-/* Fix for Inline Code (Preserved + Dynamic Background) */
+/* Fix for Inline Code */
 .prose :where(code):not(:where(pre *)) {
-  background-color: var(--color-paper-dark); /* Dynamic: #E6E2D3 (Light) / #1F1C18 (Dark) */
+  background-color: var(--color-paper-dark);
   color: var(--color-accent);
   font-weight: 600;
   padding: 0.1rem 0.3rem;
   border-radius: 0.25rem;
 }
 
-/* Fix for Code Blocks (Preserved + Dynamic Colors) */
+/* Fix for Code Blocks */
 pre {
-  background-color: var(--color-code-bg) !important; /* Dynamic Variable */
+  background-color: var(--color-code-bg) !important;
   color: var(--color-code-text);
-  border: 1px solid var(--color-gray-400); /* Use gray-400 (metadata color) for border */
+  border: 1px solid var(--color-gray-400);
 }
