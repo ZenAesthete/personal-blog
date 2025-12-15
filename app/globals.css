@@ -3,7 +3,7 @@
 
 /* 
    ==========================================================================
-   THEME CONFIGURATION (High Contrast Parchment)
+   THEME CONFIGURATION: "Readable Antiquity"
    ==========================================================================
 */
 @theme {
@@ -12,51 +12,47 @@
   --font-serif: var(--font-cormorant);   
   
   /* 
-     CORE PALETTE
-     Paper: Warm Beige
-     Ink: Almost Black (Not pure black, softer on eyes)
-     Rust: Accent color
+     PALETTE OVERHAUL
+     
+     Paper: #F5F2E8 (A slightly creamier, solid beige)
+     Ink:   #1C1917 (Warm Black - High Contrast)
+     Accent: #8B2C0E (Deep Vermilion/Rust - Classic Manuscript Red)
   */
-  --color-paper: #F2F0E9;                
-  --color-ink: #1A1510;                  
-  --color-rust: #A63C1E; 
+  
+  --color-paper: #F5F2E8;                
+  --color-ink: #1C1917;                  
+  --color-accent: #8B2C0E; 
 
   /* 
-     THE "NO GHOST TEXT" REMAP
-     We are completely removing light grays from the text scale.
-     Even the lightest text color (gray-400) will now be a solid dark brown.
+     COLOR MAPPING
+     We are forcing high contrast. 
+     Gray scale is now just shades of Warm Black.
   */
   
-  /* Backgrounds & subtle areas */
-  --color-gray-50:  #FAF9F7;
-  --color-gray-100: #F2F0E9; /* Matches Paper */
-  --color-gray-200: #E3DFD4; /* Darker Paper for cards/hovers */
+  /* Backgrounds */
+  --color-gray-50:  #FAF9F6;
+  --color-gray-100: #F5F2E8; /* Main Paper */
+  --color-gray-200: #E6E2D3; /* Darker Paper (Cards/Borders) */
   
-  /* Borders - Visible but subtle */
-  --color-gray-300: #B0A898;             
+  /* Borders - Visible & Solid */
+  --color-gray-300: #Cdc8B8;             
   
-  /* 
-     TEXT COLORS START HERE
-     These are significantly darker than standard Tailwind grays.
-  */
+  /* META TEXT (Dates, captions) */
+  /* Previously this was too light. Now it is a solid dark grey-brown. */
+  --color-gray-400: #6B6257;             
   
-  /* Dates / Metadata (Was #756C60 -> Now #5E5448) */
-  --color-gray-400: #5E5448;             
+  /* SECONDARY TEXT */
+  --color-gray-500: #524C44;             
+  --color-gray-600: #3F3A34;             
   
-  /* Secondary Text / Captions (Was #5E5549 -> Now #4A4238) */
-  --color-gray-500: #4A4238;             
-  
-  /* Main Body Descriptions (Was #453E35 -> Now #2E2924 - Almost Black) */
-  --color-gray-600: #2E2924;             
-  
-  /* Near Blacks */
-  --color-gray-700: #24201C;
-  --color-gray-800: #1A1510;
-  --color-gray-900: #0F0C0A; /* Deepest Ink */
+  /* PRIMARY TEXT (Body) */
+  --color-gray-700: #2E2924;
+  --color-gray-800: #1C1917; /* Main Ink */
+  --color-gray-900: #0F0C0A; /* Headers */
   --color-gray-950: #000000;
 
-  /* Map Blue to Rust for hover states */
-  --color-blue-600: var(--color-rust);
+  /* Map Blue (default link color) to Accent */
+  --color-blue-600: var(--color-accent);
 }
 
 /* 
@@ -73,69 +69,87 @@ body {
   background-color: var(--color-paper);
   color: var(--color-ink);
   font-family: var(--font-crimson), serif; 
-  font-feature-settings: "onum", "pnum"; 
   
   /* 
-     VITAL FIX:
-     Crimson Pro is a thin font. This slightly thickens it 
-     without making it bold, improving readability on light backgrounds.
+     CRITICAL READABILITY FIXES
+     1. Increase base weight
+     2. Increase base size slightly
   */
-  -webkit-font-smoothing: auto; 
-  -moz-osx-font-smoothing: auto;
-  font-weight: 500; /* Bump base weight from 400 to 500 */
+  font-weight: 500; 
+  font-size: 1.05rem; /* Slight boost from default 1rem */
+  line-height: 1.75;
+  
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
+/* Headings: Deep Black, Heavy Weight */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-cormorant), serif;
   font-weight: 700;
-  letter-spacing: -0.02em; 
   color: var(--color-gray-900);
+  letter-spacing: -0.01em; 
 }
 
 /* 
    ==========================================================================
-   UI Refinements
+   Element Styling
    ==========================================================================
 */
 
+/* Selection: High Contrast */
 ::selection {
-  background-color: var(--color-rust);
-  color: white;
+  background-color: var(--color-accent);
+  color: #fff;
 }
 
-/* Typography Plugin Overrides */
+/* Links (Global) */
+a {
+  transition: color 0.2s ease;
+}
+
+/* 
+   ==========================================================================
+   Typography Plugin Overrides (MDX Content)
+   ==========================================================================
+*/
 .prose {
-  /* Ensure article text is high contrast */
+  /* Body Text: Solid Warm Black */
   --tw-prose-body: var(--color-gray-800);
+  
+  /* Headings: Pure Black */
   --tw-prose-headings: var(--color-gray-900);
-  --tw-prose-links: var(--color-rust);
-  --tw-prose-bold: var(--color-gray-900);
+  
+  /* Links: Accent Color + Underline */
+  --tw-prose-links: var(--color-accent);
+  
+  /* Bold: Black */
+  --tw-prose-bold: var(--color-gray-950);
+  
+  /* Quotes: Dark Grey with Accent Border */
   --tw-prose-quotes: var(--color-gray-600); 
-  --tw-prose-quote-borders: var(--color-rust);
+  --tw-prose-quote-borders: var(--color-accent);
+  
+  /* Captions */
   --tw-prose-captions: var(--color-gray-500);
   
-  font-size: 1.125rem; 
+  /* Size & Spacing adjustments for readability */
+  font-size: 1.125rem; /* 18px */
   line-height: 1.8;
+  max-width: 65ch; /* Optimal reading width */
 }
 
-/* Code Block Styling */
-pre {
-  background-color: #1e1e1e !important; /* Dark background for code */
-  border-radius: 0.5rem;
-  border: 1px solid var(--color-gray-300);
-  padding: 1rem;
-  overflow-x: auto;
-}
-
-code {
-  font-family: monospace; /* Ensure code font is distinct */
-}
-
-/* Inline code styling (like `const x`) */
-:not(pre) > code {
-  background-color: var(--color-gray-200);
-  color: var(--color-rust);
-  padding: 0.2rem 0.4rem;
+/* Fix for Inline Code (make it pop) */
+.prose :where(code):not(:where(pre *)) {
+  background-color: #E6E2D3; /* Darker paper background */
+  color: var(--color-accent);
+  font-weight: 600;
+  padding: 0.1rem 0.3rem;
   border-radius: 0.25rem;
-  font-size: 0.85em;
+}
+
+/* Fix for Code Blocks */
+pre {
+  background-color: #2E2924 !important; /* Dark Brown/Black background */
+  border: 1px solid var(--color-gray-400);
 }
