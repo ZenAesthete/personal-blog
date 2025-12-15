@@ -3,23 +3,25 @@ import { CATEGORIES } from "@/lib/content";
 
 export default function Nav() {
   return (
-    <nav className="border-b border-gray-200 dark:border-gray-800 py-6 mb-8">
-      <div className="container mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-        {/* Logo / Home Link */}
+    // Double border creates a "classical" separator look
+    <nav className="border-b-4 border-double border-sepia/20 py-8 mb-12">
+      <div className="container mx-auto px-4 flex flex-col items-center justify-center gap-6">
+        
+        {/* Logo - Large, Centered, Fancy Serif */}
         <Link 
           href="/" 
-          className="text-xl font-bold tracking-tight hover:text-blue-600 transition-colors"
+          className="text-4xl md:text-5xl font-bold font-serif tracking-tight text-gray-900 hover:text-rust transition-colors decoration-clone"
         >
           Personal Blog
         </Link>
 
-        {/* Navigation Links */}
-        <ul className="flex flex-wrap justify-center gap-6">
+        {/* Categories - Elegant serif links with italic hover */}
+        <ul className="flex flex-wrap justify-center gap-x-8 gap-y-2 mt-2">
           {CATEGORIES.map((category) => (
             <li key={category}>
               <Link 
                 href={`/${category}`}
-                className="text-sm font-medium uppercase tracking-wider text-gray-500 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
+                className="text-lg text-sepia hover:text-rust hover:italic transition-all duration-300 capitalize font-serif"
               >
                 {category}
               </Link>

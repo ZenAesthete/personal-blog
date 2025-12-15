@@ -3,24 +3,66 @@
 
 /* 
    ==========================================================================
-   Global Polish & Variables
+   THEME CONFIGURATION (Parchment & Ink)
+   ==========================================================================
+*/
+@theme {
+  /* Override default fonts */
+  --font-sans: var(--font-crimson);      /* Body text is now Serif (Crimson) */
+  --font-serif: var(--font-cormorant);   /* Headings are Fancy Serif (Cormorant) */
+  
+  /* Define our Custom Palette */
+  --color-paper: #F2F0E9;                /* Warm Parchment Background */
+  --color-paper-dark: #E6E2D6;           /* Slightly darker paper for accents */
+  
+  --color-ink: #2C241B;                  /* Very Dark Brown (Text) */
+  --color-sepia: #5C554B;                /* Muted Brown (Secondary Text) */
+  --color-rust: #8C4A32;                 /* Dried Blood/Rust (Links/Accents) */
+  
+  /* 
+     We Override Gray to be Sepia-toned 
+     This ensures all existing "text-gray-500" classes turn warm automatically 
+  */
+  --color-gray-50:  #FAF9F7;
+  --color-gray-100: #F2F0E9;
+  --color-gray-200: #E6E2D6;
+  --color-gray-300: #D1CCC0;
+  --color-gray-400: #9D9688;
+  --color-gray-500: #7A7266;
+  --color-gray-600: #5C554B;
+  --color-gray-700: #453D33;
+  --color-gray-800: #2C241B;
+  --color-gray-900: #1A1510;
+  --color-gray-950: #0D0A08;
+
+  /* Map Blue to Rust for hover states */
+  --color-blue-600: var(--color-rust);
+}
+
+/* 
+   ==========================================================================
+   Global Styles
    ==========================================================================
 */
 
 :root {
-  /* Enables smooth scrolling for anchor links */
   scroll-behavior: smooth;
 }
 
-@layer base {
-  body {
-    /* 
-       This ensures the font looks crisp on MacOS/iOS.
-       (We already applied the classes in layout.tsx, but this is a backup)
-    */
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
+body {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  /* Use the Crimson font by default */
+  font-family: var(--font-crimson), serif; 
+  /* Old style figures looks better on numbers */
+  font-feature-settings: "onum", "pnum"; 
+}
+
+/* Headings use the fancy Cormorant font */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-cormorant), serif;
+  font-weight: 700;
+  letter-spacing: -0.02em; /* Tighter tracking looks more like print */
 }
 
 /* 
@@ -29,48 +71,32 @@
    ==========================================================================
 */
 
-/* 1. Selection Color (The color when you highlight text) */
 ::selection {
-  background-color: var(--color-blue-500); /* Tailwind Blue 500 */
+  background-color: var(--color-rust);
   color: white;
 }
 
-/* 2. Custom Scrollbar (Sleek & Minimal) */
-::-webkit-scrollbar {
-  width: 10px;
-}
-
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: var(--color-gray-300);
-  border-radius: 5px;
-  border: 2px solid transparent;
-  background-clip: content-box;
-}
-
-/* Dark mode scrollbar */
-@media (prefers-color-scheme: dark) {
-  ::-webkit-scrollbar-thumb {
-    background-color: var(--color-gray-700);
-  }
+/* Typography Plugin Overrides to fit the theme */
+.prose {
+  --tw-prose-body: var(--color-ink);
+  --tw-prose-headings: var(--color-gray-900);
+  --tw-prose-links: var(--color-rust);
+  --tw-prose-quotes: var(--color-sepia);
+  --tw-prose-quote-borders: var(--color-rust);
   
-  ::selection {
-    background-color: var(--color-blue-600);
-    color: white;
-  }
+  /* Make prose text larger for book-like reading */
+  font-size: 1.125rem; 
+  line-height: 1.8;
 }
 
+/* Add a subtle "Paper Grain" effect (Optional, keeps it clean for now) */
 /* 
-   ==========================================================================
-   Typography Overrides
-   ==========================================================================
-   Tailwind Typography (prose) is great, but we can tweak it slightly here
-   if we want links in articles to be a specific color, etc.
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 50;
+} 
 */
-
-@theme {
-  --font-sans: var(--font-inter); /* Links to the Next.js font loader */
-}
