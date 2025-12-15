@@ -1,9 +1,11 @@
-import { getArticlesByCategory } from "@/lib/content";
-
 export default function Home() {
-  const philosophyArticles = getArticlesByCategory("philosophy");
-
-  //console.log(philosophyArticles);
-
-  return <h1>Home</h1>;
+  return (
+    <main>
+      <h2>Welcome</h2>
+      <p>
+        This is a personal space for writing, reflection, and
+        long-form thought.
+      </p>
+    </main>
+  );
 }

@@ -39,16 +39,20 @@ export default async function ArticlePage({
 
   return (
     <main>
+    <article className="article">
       <h1>{article.title}</h1>
+
       <p>
         <small>
           {article.date} · {article.category}
         </small>
       </p>
 
-      <article
+      <div
         dangerouslySetInnerHTML={{ __html: contentHtml }}
       />
-    </main>
+    </article>
+  </main>
   );
 }
+
