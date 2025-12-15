@@ -1,173 +1,76 @@
-/* 1. CSS Reset (minimal) */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
-html,
-body {
-  margin: 0;
-  padding: 0;
-}
-
-/* =========================
-   Theme Variables (Defaults)
-   ========================= */
+/* 
+   ==========================================================================
+   Global Polish & Variables
+   ==========================================================================
+*/
 
 :root {
-  --bg-color: #fafafa;
-  --text-color: #111;
-  --accent-color: #333;
-  --muted-color: #666;
-  --border-color: #ddd;
+  /* Enables smooth scrolling for anchor links */
+  scroll-behavior: smooth;
 }
 
-/* 2. Base Typography */
-html {
-  font-size: 16px;
+@layer base {
+  body {
+    /* 
+       This ensures the font looks crisp on MacOS/iOS.
+       (We already applied the classes in layout.tsx, but this is a backup)
+    */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 }
 
-body {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  line-height: 1.6;
-  color: var(--text-color);
-  background-color: var(--bg-color);
+/* 
+   ==========================================================================
+   UI Refinements
+   ==========================================================================
+*/
+
+/* 1. Selection Color (The color when you highlight text) */
+::selection {
+  background-color: var(--color-blue-500); /* Tailwind Blue 500 */
+  color: white;
 }
 
-
-/* 3. Links */
-a {
-  color: inherit;
-  text-decoration: none;
+/* 2. Custom Scrollbar (Sleek & Minimal) */
+::-webkit-scrollbar {
+  width: 10px;
 }
 
-a:hover {
-  text-decoration: underline;
+::-webkit-scrollbar-track {
+  background: transparent;
 }
 
-/* 4. Headings */
-h1,
-h2,
-h3,
-h4 {
-  line-height: 1.25;
-  margin: 2rem 0 1rem;
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-gray-300);
+  border-radius: 5px;
+  border: 2px solid transparent;
+  background-clip: content-box;
 }
 
-h1 {
-  font-size: 2rem;
+/* Dark mode scrollbar */
+@media (prefers-color-scheme: dark) {
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--color-gray-700);
+  }
+  
+  ::selection {
+    background-color: var(--color-blue-600);
+    color: white;
+  }
 }
 
-h2 {
-  font-size: 1.5rem;
-}
+/* 
+   ==========================================================================
+   Typography Overrides
+   ==========================================================================
+   Tailwind Typography (prose) is great, but we can tweak it slightly here
+   if we want links in articles to be a specific color, etc.
+*/
 
-h3 {
-  font-size: 1.25rem;
-}
-
-/* 5. Paragraphs */
-p {
-  margin: 1rem 0;
-}
-
-/* 6. Lists */
-ul {
-  padding-left: 1.5rem;
-}
-
-li {
-  margin: 0.5rem 0;
-}
-
-/* Reading container */
-.container {
-  max-width: 720px;
-  margin: 0 auto;
-  padding: 2rem 1rem;
-}
-
-/* Article typography */
-.article h1 {
-  margin-top: 0;
-}
-
-.article p {
-  font-size: 1.05rem;
-}
-
-/*.article small {
-  color: #666;
-}*/
-
-/* Markdown content */
-.article div p {
-  margin: 1.2rem 0;
-}
-
-.article div h2 {
-  margin-top: 3rem;
-}
-
-.article div h3 {
-  margin-top: 2rem;
-}
-
-.article div ul {
-  margin: 1rem 0;
-}
-
-/* Navigation */
-.nav {
-  display: flex;
-  gap: 1rem;
-  padding: 1rem 0;
-  list-style: none;
-}
-
-header {
-  border-bottom: 1px solid var(--border-color);
-  margin-bottom: 2rem;
-}
-
-.article small {
-  color: var(--muted-color);
-}
-
-/* =========================
-   Category Themes
-   ========================= */
-
-/* Philosophy — restrained, monochrome */
-.theme-philosophy {
-  --bg-color: #f8f8f8;
-  --text-color: #111;
-  --accent-color: #222;
-  --muted-color: #555;
-}
-
-/* Reflections — softer, personal */
-.theme-reflections {
-  --bg-color: #fbf7f5;
-  --text-color: #1a1a1a;
-  --accent-color: #5a3e36;
-  --muted-color: #6b5c57;
-}
-
-/* Resonance — warmer, expressive */
-.theme-resonance {
-  --bg-color: #fffaf2;
-  --text-color: #1f1a14;
-  --accent-color: #a05a2c;
-  --muted-color: #7a5c45;
-}
-
-/* Spirituality — calm, spacious */
-.theme-spirituality {
-  --bg-color: #f5f8f6;
-  --text-color: #0f1f1a;
-  --accent-color: #2f6f5e;
-  --muted-color: #5f7f73;
+@theme {
+  --font-sans: var(--font-inter); /* Links to the Next.js font loader */
 }
