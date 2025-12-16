@@ -11,6 +11,9 @@ export const CATEGORIES = [
   "spirituality",
 ] as const;
 
+// ADDED LINE FOR FIXING BUILD ERROR
+export type Category = (typeof CATEGORIES)[number];
+
 // 2. Define the Zod Schema for Frontmatter
 // This acts as a contract. If your MD file violates this, the build breaks.
 const ArticleSchema = z.object({
