@@ -1,7 +1,7 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CATEGORIES, getArticlesByCategory } from "@/lib/content";
-import { format } from "date-fns";
+// 1. Import the new Card component
+import { ArticleCard } from "../components/ArticleCard";
 
 interface CategoryPageProps {
   params: Promise<{
@@ -34,8 +34,9 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
   return (
     <main className="container mx-auto px-4 py-12 max-w-3xl">
+      {/* Header - PRESERVED */}
       <header className="mb-12 border-b-2 border-gray-200 pb-4">
-        <h1 className="text-4xl font-serif font-bold capitalize text-gray-900">
+        <h1 className="text-4xl font-serif font-bold capitalize text-gray-900 dark:text-gray-100">
           {category}
         </h1>
         <p className="text-gray-500 mt-2 font-serif italic">
@@ -43,42 +44,10 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         </p>
       </header>
 
-      <div className="space-y-12">
+      {/* 2. Replaced manual loop with ArticleCard */}
+      <div className="space-y-6">
         {articles.map((article) => (
-          <article key={article.slug} className="group relative block">
-            {/* 
-               LINK CONTAINER 
-               We wrap the whole block in the link for better UX, 
-               but we keep the semantic structure.
-            */}
-            <div className="flex flex-col mb-2">
-               <Link 
-                  href={`/${category}/${article.slug}`}
-                  className="text-2xl font-serif font-bold text-gray-900 group-hover:text-accent transition-colors"
-                >
-                  {article.title}
-                </Link>
-                
-                <time className="text-sm text-gray-400 mt-1 font-sans">
-                  {format(new Date(article.date), "MMMM d, yyyy")}
-                </time>
-            </div>
-
-            {article.description && (
-              <p className="text-gray-700 leading-relaxed font-sans">
-                {article.description}
-              </p>
-            )}
-            
-            <div className="mt-3">
-               <Link 
-                  href={`/${category}/${article.slug}`}
-                  className="text-sm font-bold text-accent uppercase tracking-wider hover:underline"
-                >
-                  Read Article →
-                </Link>
-            </div>
-          </article>
+          <ArticleCard key={article.slug} article={article} />
         ))}
 
         {articles.length === 0 && (
