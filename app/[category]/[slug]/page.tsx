@@ -11,6 +11,8 @@ import rehypePrettyCode from "rehype-pretty-code";
 
 // Components
 import { YouTube } from "@/app/components/YouTube";
+// 1. IMPORT THE LETTER FORM COMPONENT
+import { LetterForm } from "@/app/components/LetterForm";
 
 interface ArticlePageProps {
   params: Promise<{
@@ -94,6 +96,11 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             }}
           />
         </div>
+
+        {/* 2. INSERT LETTER FORM HERE */}
+        {/* It sits outside the prose div so it doesn't inherit article styling */}
+        <LetterForm title={articleData.meta.title} />
+
       </article>
     </main>
   );
