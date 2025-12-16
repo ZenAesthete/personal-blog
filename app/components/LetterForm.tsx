@@ -15,7 +15,7 @@ export function LetterForm({ title }: { title: string }) {
     formData.append("subject", `New Letter regarding: ${title}`);
     
     // REPLACE THIS WITH YOUR ACTUAL ACCESS KEY
-    formData.append("access_key", "YOUR_ACCESS_KEY_HERE");
+    formData.append("access_key", "c8fed9b5-c20a-4b37-b0b4-babe933f6743");
 
     try {
       const response = await fetch("https://api.web3forms.com/submit", {
