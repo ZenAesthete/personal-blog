@@ -43,7 +43,7 @@ export default function RootLayout({
 
           <footer className="border-t border-gray-200 py-12 mt-20 bg-gray-50 dark:bg-gray-100 transition-colors duration-300">
             <div className="container mx-auto px-4 text-center text-sm text-gray-500 font-medium">
-              <p>© {new Date().getFullYear()} — Personal Knowledge Archive.</p>
+              <p>© {new Date().getFullYear()} — KintsugiKomorebi.</p>
             </div>
           </footer>
         </ThemeProvider>

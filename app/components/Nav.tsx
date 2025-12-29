@@ -21,7 +21,7 @@ export default function Nav() {
           href="/" 
           className="text-5xl font-bold font-serif tracking-tight text-gray-900 hover:text-accent transition-colors"
         >
-          Personal Blog
+          Kintsugi Komorebi
         </Link>
 
         {/* Mobile Toggle (Visible only on small screens) */}
